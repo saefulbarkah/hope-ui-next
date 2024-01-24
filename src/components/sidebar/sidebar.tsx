@@ -91,7 +91,7 @@ export const Sidebar = () => {
       <div className="mt-5 px-2">
         {menus.map((item, i) => {
           return (
-            <div key={i}>
+            <div key={i} className="mt-2">
               <MenuTitle>Home</MenuTitle>
               {item.items.map((item, index) => {
                 return (
@@ -124,7 +124,7 @@ export const Sidebar = () => {
 const MenuTitle = ({ children }: PropsWithChildren) => {
   return (
     <div className="pb-2 pl-5 pt-4">
-      <p className="font-semibold text-[#ADB5BD]">{children}</p>
+      <p className="text-sm font-semibold text-[#ADB5BD]">{children}</p>
     </div>
   );
 };
