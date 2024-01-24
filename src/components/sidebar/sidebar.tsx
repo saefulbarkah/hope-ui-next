@@ -1,5 +1,5 @@
 "use client";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { ArrowLeft, Dot, LayoutDashboard, OptionIcon } from "lucide-react";
@@ -19,6 +19,7 @@ type menu = {
     label: string;
     icon: React.ReactNode;
     url: LinkProps["href"] | null;
+    as?: string;
     child?: {
       label: string;
       icon?: React.ReactNode;
@@ -34,12 +35,13 @@ const menus: menu[] = [
       {
         label: "Dashboard",
         icon: <LayoutDashboard />,
-        url: "/dashboardd",
+        url: "/",
       },
       {
         label: "Menu Style",
         icon: <OptionIcon />,
         url: null,
+        as: "menu-style",
         child: [
           {
             label: "Example style 1",
@@ -60,6 +62,7 @@ const menus: menu[] = [
         label: "Example",
         icon: <OptionIcon />,
         url: null,
+        as: "example",
         child: [
           {
             label: "Example style 1",
@@ -98,6 +101,7 @@ export const Sidebar = () => {
                   <div key={index}>
                     {item.child ? (
                       <MenuItemChild
+                        as={item.as}
                         icon={item.icon}
                         label={item.label}
                         data={item.child}
@@ -130,6 +134,7 @@ const MenuTitle = ({ children }: PropsWithChildren) => {
 };
 
 type menuChildProps = {
+  as?: string;
   data: {
     label: string;
     icon?: React.ReactNode;
@@ -138,11 +143,23 @@ type menuChildProps = {
   label: string;
   icon?: React.ReactNode;
 };
-const MenuItemChild = ({ data, icon, label }: menuChildProps) => {
+const MenuItemChild = ({ data, icon, label, as }: menuChildProps) => {
+  const [isCollapsed, setCollapsed] = useState([""]);
+  const router = usePathname();
+
+  useEffect(() => {
+    data.filter((item) => {
+      if (item.url === router) {
+        setCollapsed([as as string]);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="h-0 rounded px-6 py-6 no-underline hover:bg-light/10 hover:no-underline data-[state=open]:bg-primary data-[state=closed]:text-[#8A92A6] data-[state=open]:text-white data-[state=closed]:hover:text-black">
+    <Accordion type="multiple" value={isCollapsed} onValueChange={setCollapsed}>
+      <AccordionItem value={as as string}>
+        <AccordionTrigger className="h-0 rounded px-6 py-6 no-underline hover:bg-light/10 hover:no-underline data-[state=closed]:hover:text-black">
           <div className="flex items-center">
             <i className="mr-2">{icon}</i>
             <p className="text-base">{label}</p>
@@ -187,7 +204,7 @@ const MenuItem = ({
         size={"default"}
         variant={router === href ? "primary" : "ghost"}
         className={cn(
-          `flex w-full items-center justify-start py-3 text-start capitalize ${router === href ? "text-white" : "text-[#8A92A6]"}`,
+          `flex w-full items-center justify-start py-2.5 text-start capitalize ${router === href ? "text-white" : "text-[#8A92A6]"}`,
           className,
         )}
       >
