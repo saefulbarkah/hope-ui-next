@@ -1,10 +1,13 @@
 import { Input } from "@/components/ui/input";
+import { useLayoutStore } from "@/store/layout";
 import { Search } from "lucide-react";
 import React from "react";
 
 export default function SearchMenu() {
+  const layout = useLayoutStore((state) => state);
+
   return (
-    <div className="relative">
+    <div className={`relative w-48 ${layout.sidebarOpen ? "" : "ml-5"}`}>
       <Input placeholder="" className="peer h-full py-2 pl-9" />
       <label className="pointer-events-none absolute inset-y-0 hidden translate-x-9 items-center text-base text-[#ADB5BD] peer-placeholder-shown:flex">
         Search...

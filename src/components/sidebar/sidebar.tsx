@@ -12,6 +12,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+import { useLayoutStore } from "@/store/layout";
+import { useLayout } from "@/hooks/use-layout";
 
 type menu = {
   pageTitle: string;
@@ -79,16 +81,18 @@ const menus: menu[] = [
 ];
 
 export const Sidebar = () => {
+  const isOpen = useLayoutStore((state) => state.sidebarOpen);
+
   return (
-    <div className="fixed bottom-0 left-0 top-0 w-[257px] bg-white">
+    <div
+      className={cn(
+        `fixed bottom-0 left-0 top-0 z-50 w-[257px] bg-white transition ease-in-out lg:z-10`,
+        `${isOpen ? "translate-x-0" : "-translate-x-full"}`,
+      )}
+    >
       <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
         <Logo />
         <h2 className="text-3xl">Hope UI</h2>
-        <div className="absolute -right-3">
-          <Button size={"icon"} className="h-8 w-8 rounded-full">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </div>
       </div>
       <Separator />
       <div className="mt-5 px-2">

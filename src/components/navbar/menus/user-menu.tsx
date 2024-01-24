@@ -25,7 +25,7 @@ export default function UserMenu() {
             alt="avatar"
             className="select-none rounded-full"
           />
-          <div className="pointer-events-none flex flex-col">
+          <div className="pointer-events-none hidden flex-col lg:flex">
             <p>Saeful Barkah</p>
             <p className="text-sm text-[#8A92A6]">Software Engineer</p>
           </div>
