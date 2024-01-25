@@ -4,17 +4,16 @@ import React from "react";
 
 export default function HeaderPage() {
   return (
-    <div className="relative">
-      <div className="pointer-events-none absolute left-0 right-0 top-0 -z-50">
-        <div className="relative h-[150px] w-full">
-          <Image
-            alt="graphic"
-            src={"/graphic-side.png"}
-            fill
-            className="bg-cover object-cover"
-            unoptimized
-          />
-        </div>
+    <div className="relative h-[120px]">
+      <div className="pointer-events-none absolute left-0 right-0 top-0 -z-50 lg:h-[180px] 2xl:h-[234px]">
+        <Image
+          alt="graphic"
+          src={"/graphic-side.png"}
+          fill
+          priority={true}
+          quality={100}
+          className="h-full w-full"
+        />
       </div>
 
       <div className="container relative pb-6 pt-9 text-white">

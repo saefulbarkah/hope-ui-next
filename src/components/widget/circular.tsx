@@ -24,6 +24,7 @@ type props = React.HTMLAttributes<HTMLDivElement> &
 export default function CircularWidget({
   variant,
   children,
+  className,
   percentage = 0,
 }: props) {
   const MAX_CIRCLE_VALUE = 160;
@@ -39,7 +40,7 @@ export default function CircularWidget({
       <svg
         width={65}
         height={65}
-        className="mr-2 -rotate-180"
+        className={cn("mr-2 -rotate-[95deg]", className)}
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
       >
@@ -47,20 +48,19 @@ export default function CircularWidget({
           cx="30"
           cy="30"
           r="25"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
           strokeLinecap="round"
-          stroke-dasharray={`160,160`}
+          strokeDasharray={`160,160`}
           className={"stroke-black/10"}
         />
         <circle
           cx="30"
           cy="30"
           r="25"
-          stroke-width="3"
+          strokeWidth="3"
           fill="none"
-          strokeLinecap="round"
-          stroke-dasharray={`${calculatePercentage(percentage)},${MAX_CIRCLE_VALUE}`}
+          strokeDasharray={`${calculatePercentage(percentage)},${MAX_CIRCLE_VALUE}`}
           className={cn(circularVariants({ variant }))}
         />
       </svg>
