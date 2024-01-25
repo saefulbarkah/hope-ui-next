@@ -7,8 +7,10 @@ export default function SearchMenu() {
   const layout = useLayoutStore((state) => state);
 
   return (
-    <div className={`relative w-48 ${layout.sidebarOpen ? "" : "ml-5"}`}>
-      <Input placeholder="" className="peer h-full py-2 pl-9" />
+    <div
+      className={`relative w-48 transition motion-reduce:transition-none ${layout.sidebarOpen ? "" : "ml-5"}`}
+    >
+      <Input placeholder="" className="peer h-full py-2 pl-9 lg:w-[275px]" />
       <label className="pointer-events-none absolute inset-y-0 hidden translate-x-9 items-center text-base text-[#ADB5BD] peer-placeholder-shown:flex">
         Search...
       </label>

@@ -86,7 +86,7 @@ export const Sidebar = () => {
   return (
     <div
       className={cn(
-        `fixed bottom-0 left-0 top-0 z-50 w-[257px] bg-white transition ease-in-out lg:z-10`,
+        `fixed bottom-0 left-0 top-0 z-50 w-[257px] bg-white transition ease-in-out motion-reduce:transition-none lg:z-10`,
         `${isOpen ? "translate-x-0" : "-translate-x-full"}`,
       )}
     >

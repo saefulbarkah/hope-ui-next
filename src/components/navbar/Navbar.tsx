@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import SearchMenu from "./menus/search-menu";
 import UserMenu from "./menus/user-menu";
 import MessageMenu from "./menus/message-menu";
@@ -15,14 +15,14 @@ export const Navbar = () => {
   return (
     <div
       className={cn(
-        `fixed inset-x-0 top-0 z-50 bg-white transition-[margin] ease-in-out`,
+        `fixed inset-x-0 top-0 z-50 bg-white transition-[margin] ease-in-out motion-reduce:transition-none`,
         `${layout.sidebarOpen ? "ml-0 lg:ml-[257px]" : "ml-0"}`,
       )}
     >
       <div className="relative flex h-[76px] items-center justify-between px-8 py-4">
         <div
           className={cn(
-            `absolute left-2 z-50`,
+            `absolute left-2 z-50 transition motion-reduce:transition-none`,
             `${layout.sidebarOpen ? "-translate-x-7" : "translate-x-0"}`,
           )}
         >
@@ -31,7 +31,9 @@ export const Navbar = () => {
             className="h-8 w-8 rounded-full"
             onClick={() => layout.toggleSidebar()}
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft
+              className={`${!layout.sidebarOpen && "rotate-180"} h-5 w-5`}
+            />
           </Button>
         </div>
         <SearchMenu />

@@ -1,7 +1,9 @@
+import TitlePage from "@/components/header/title-page";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="flex flex-col gap-2"></div>
-    </main>
+    <div className="border border-black">
+      <TitlePage />
+    </div>
   );
 }
