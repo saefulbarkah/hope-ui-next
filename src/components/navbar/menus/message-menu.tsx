@@ -1,20 +1,20 @@
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Mail } from "lucide-react";
 import React from "react";
 
 export default function MessageMenu() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Mail className="text-gray-500" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent sideOffset={30} className="w-52 text-center">
+    <Popover>
+      <PopoverTrigger>
+        <Mail className="h-6 w-6 text-gray-600" />
+      </PopoverTrigger>
+      <PopoverContent sideOffset={30} className="w-52 text-center">
         <p>on development....</p>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </PopoverContent>
+    </Popover>
   );
 }
