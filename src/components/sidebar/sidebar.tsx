@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { useLayoutStore } from "@/store/layout";
-import { useLayout } from "@/hooks/use-layout";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 
 type menu = {
   pageTitle: string;
@@ -81,50 +81,77 @@ const menus: menu[] = [
 ];
 
 export const Sidebar = () => {
-  const isOpen = useLayoutStore((state) => state.sidebarOpen);
+  const { sidebarOpen, setSidebarOpen } = useLayoutStore((state) => state);
+
+  const sidebarVariant: Variants = {
+    open: {
+      translateX: 0,
+    },
+    close: {
+      translateX: "-100%",
+    },
+  };
 
   return (
-    <div
-      className={cn(
-        `fixed bottom-0 left-0 top-0 z-50 w-[257px] bg-white transition ease-in-out motion-reduce:transition-none lg:z-10`,
-        `${isOpen ? "translate-x-0" : "-translate-x-full"}`,
-      )}
-    >
-      <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
-        <Logo />
-        <h2 className="text-3xl">Hope UI</h2>
-      </div>
-      <Separator />
-      <div className="mt-5 px-2">
-        {menus.map((item, i) => {
-          return (
-            <div key={i} className="mt-2">
-              <MenuTitle>Home</MenuTitle>
-              {item.items.map((item, index) => {
-                return (
-                  <div key={index}>
-                    {item.child ? (
-                      <MenuItemChild
-                        as={item.as}
-                        icon={item.icon}
-                        label={item.label}
-                        data={item.child}
-                      />
-                    ) : (
-                      <MenuItem
-                        href={`${item.url}`}
-                        label="Dashboard"
-                        icon={<LayoutDashboard />}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+    <div className="relative">
+      <motion.div
+        initial={false}
+        animate={sidebarOpen ? "open" : "close"}
+        transition={{
+          bounce: 0,
+          type: "spring",
+          duration: 0.5,
+        }}
+        variants={sidebarVariant}
+        className={`fixed bottom-0 left-0 top-0 z-[60] w-[257px] bg-white ease-in-out lg:z-10`}
+      >
+        <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
+          <Logo />
+          <h2 className="text-3xl">Hope UI</h2>
+        </div>
         <Separator />
-      </div>
+        <div className="mt-5 px-2">
+          {menus.map((item, i) => {
+            return (
+              <div key={i} className="mt-2">
+                <MenuTitle>Home</MenuTitle>
+                {item.items.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      {item.child ? (
+                        <MenuItemChild
+                          as={item.as}
+                          icon={item.icon}
+                          label={item.label}
+                          data={item.child}
+                        />
+                      ) : (
+                        <MenuItem
+                          href={`${item.url}`}
+                          label="Dashboard"
+                          icon={<LayoutDashboard />}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+          <Separator />
+        </div>
+      </motion.div>
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[50] block cursor-pointer bg-black/20 backdrop-blur-sm lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

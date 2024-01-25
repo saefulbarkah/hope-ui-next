@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useLayout } from "@/hooks/use-layout";
 import { useLayoutStore } from "@/store/layout";
@@ -5,6 +6,9 @@ import React, { PropsWithChildren, useEffect } from "react";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
 import { cn } from "@/lib/utils";
+import { motion, Variants } from "framer-motion";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { LoadingPage } from "./loader/loading-page";
 
 export const MainContent = ({
   children,
@@ -19,26 +23,36 @@ export const MainContent = ({
 };
 
 export default function Layout({ children }: PropsWithChildren) {
-  const layoutState = useLayoutStore((state) => state);
-  const { size } = useLayout();
+  const { sidebarOpen, screentype } = useLayoutStore((state) => state);
 
-  // resize by screen
-  useEffect(() => {
-    if (size === "MOBILE") {
-      return layoutState.setSidebarOpen(false);
-    }
-    return layoutState.setSidebarOpen(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size]);
+  const layoutVariant: Variants = {
+    open:
+      screentype === "DESKTOP"
+        ? {
+            marginLeft: "257px",
+          }
+        : {
+            marginLeft: 0,
+          },
+  };
+
   return (
-    <div>
+    <LoadingPage>
       <Navbar />
       <Sidebar />
-      <div
-        className={`transition-[margin] motion-reduce:transition-none ${layoutState.sidebarOpen && "ml-[257px]"} mt-[76px]`}
+      <motion.div
+        initial={false}
+        animate={sidebarOpen ? "open" : { marginLeft: 0 }}
+        transition={{
+          bounce: 0,
+          type: "spring",
+          duration: 0.5,
+        }}
+        variants={layoutVariant}
+        className={`mt-[76px]`}
       >
         {children}
-      </div>
-    </div>
+      </motion.div>
+    </LoadingPage>
   );
 }
