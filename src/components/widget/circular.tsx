@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import React from "react";
+import { Variants, motion } from "framer-motion";
 
 const circularVariants = cva("", {
   variants: {
@@ -19,20 +20,32 @@ const circularVariants = cva("", {
 export type circularColor = VariantProps<typeof circularVariants>["variant"];
 
 type props = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof circularVariants> & { percentage: number };
+  VariantProps<typeof circularVariants> & {
+    percentage: number;
+    animation?: boolean;
+  };
+
+const MAX_CIRCLE_VALUE = 160;
+
+const calculatePercentage = (percentage: number) => {
+  const results = MAX_CIRCLE_VALUE * (1 - percentage / 100);
+  return results;
+};
 
 export default function CircularWidget({
   variant,
   children,
   className,
   percentage = 0,
+  animation = true,
 }: props) {
-  const MAX_CIRCLE_VALUE = 160;
-
-  const calculatePercentage = (percentage: number) => {
-    // Calculate the dasharray value based on the normalized percentage
-    const results = (percentage / 100) * MAX_CIRCLE_VALUE;
-    return results;
+  const animateVariant: Variants = {
+    initial: {
+      strokeDashoffset: calculatePercentage(0),
+    },
+    animate: {
+      strokeDashoffset: calculatePercentage(percentage),
+    },
   };
 
   return (
@@ -54,13 +67,20 @@ export default function CircularWidget({
           strokeDasharray={`160,160`}
           className={"stroke-black/10"}
         />
-        <circle
+        <motion.circle
+          initial={animation ? "initial" : ""}
+          animate={animation ? "animate" : ""}
+          variants={animateVariant}
           cx="30"
           cy="30"
           r="25"
           strokeWidth="3"
+          strokeLinecap={"round"}
           fill="none"
-          strokeDasharray={`${calculatePercentage(percentage)},${MAX_CIRCLE_VALUE}`}
+          strokeDasharray={MAX_CIRCLE_VALUE}
+          strokeDashoffset={
+            animation ? undefined : calculatePercentage(percentage)
+          }
           className={cn(circularVariants({ variant }))}
         />
       </svg>
