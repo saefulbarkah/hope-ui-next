@@ -4,6 +4,19 @@ import { useLayoutStore } from "@/store/layout";
 import React, { PropsWithChildren, useEffect } from "react";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
+import { cn } from "@/lib/utils";
+
+export const MainContent = ({
+  children,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLElement>) => {
+  return (
+    <main className={cn(`container`, className)} {...props}>
+      {children}
+    </main>
+  );
+};
 
 export default function Layout({ children }: PropsWithChildren) {
   const layoutState = useLayoutStore((state) => state);
@@ -22,7 +35,7 @@ export default function Layout({ children }: PropsWithChildren) {
       <Navbar />
       <Sidebar />
       <div
-        className={`transition-[margin] motion-reduce:transition-none ${layoutState.sidebarOpen ? "ml-[278px]" : "ml-10"} mr-10 mt-24`}
+        className={`transition-[margin] motion-reduce:transition-none ${layoutState.sidebarOpen && "ml-[257px]"} mt-[76px]`}
       >
         {children}
       </div>
