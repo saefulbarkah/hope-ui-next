@@ -138,7 +138,6 @@ export const Sidebar = () => {
               </div>
             );
           })}
-          <Separator />
         </div>
       </motion.div>
       <AnimatePresence>

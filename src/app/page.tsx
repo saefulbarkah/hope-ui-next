@@ -1,6 +1,6 @@
 import HeaderPage from "@/components/header/header-page";
 import { MainContent } from "@/components/layout";
-import { Summary } from "@/features/dashboard";
+import { SalesStatistic, Summary } from "@/features/dashboard";
 
 export default function Home() {
   return (
@@ -8,6 +8,7 @@ export default function Home() {
       <HeaderPage />
       <MainContent>
         <Summary />
+        <SalesStatistic />
       </MainContent>
     </div>
   );
