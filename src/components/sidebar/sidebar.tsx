@@ -2,7 +2,7 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
-import { ArrowLeft, Dot, LayoutDashboard, OptionIcon } from "lucide-react";
+import { Dot, LayoutDashboard, OptionIcon } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -132,6 +132,9 @@ export const Sidebar = () => {
                           icon={<LayoutDashboard />}
                         />
                       )}
+                      <div className="px-5">
+                        <Separator />
+                      </div>
                     </div>
                   );
                 })}
@@ -188,7 +191,7 @@ const MenuItemChild = ({ data, icon, label, as }: menuChildProps) => {
 
   return (
     <Accordion type="multiple" value={isCollapsed} onValueChange={setCollapsed}>
-      <AccordionItem value={as as string}>
+      <AccordionItem value={as as string} className="border-0">
         <AccordionTrigger className="h-0 rounded px-6 py-6 no-underline hover:bg-light/10 hover:no-underline data-[state=closed]:hover:text-black">
           <div className="flex items-center">
             <i className="mr-2">{icon}</i>
