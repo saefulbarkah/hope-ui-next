@@ -1,8 +1,8 @@
 "use client";
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
-import { Dot, LayoutDashboard, OptionIcon } from "lucide-react";
+import { Button, ButtonProps } from "../ui/button";
+import { Dot, Layers2, LayoutDashboard, OptionIcon } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -61,18 +61,18 @@ const menus: menu[] = [
     pageTitle: "Home",
     items: [
       {
-        label: "Example",
-        icon: <OptionIcon />,
+        label: "Components",
+        icon: <Layers2 />,
         url: null,
         as: "example",
         child: [
           {
-            label: "Example style 1",
-            url: "/#example-1",
+            label: "Button",
+            url: "/components/button",
           },
           {
-            label: "Example style 2",
-            url: "/#example-2",
+            label: "Tabs",
+            url: "/components/tabs",
           },
         ],
       },

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useLayout } from "@/hooks/use-layout";
 import { useLayoutStore } from "@/store/layout";
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren } from "react";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
 import { cn } from "@/lib/utils";
@@ -14,7 +13,7 @@ export const MainContent = ({
   children,
   className,
   ...props
-}: React.HTMLAttributes<HTMLElement>) => {
+}: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <main className={cn(`container`, className)} {...props}>
       {children}
