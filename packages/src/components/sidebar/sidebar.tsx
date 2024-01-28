@@ -22,6 +22,7 @@ type menu = {
     icon: React.ReactNode;
     url: LinkProps["href"] | null;
     as?: string;
+    prefix?: string;
     child?: {
       label: string;
       icon?: React.ReactNode;
@@ -37,7 +38,7 @@ const menus: menu[] = [
       {
         label: "Dashboard",
         icon: <LayoutDashboard />,
-        url: "/",
+        url: "/ui/dashboard",
       },
       {
         label: "Menu Style",
@@ -65,14 +66,15 @@ const menus: menu[] = [
         icon: <Layers2 />,
         url: null,
         as: "example",
+        prefix: "/ui/components",
         child: [
           {
             label: "Button",
-            url: "/components/button",
+            url: "/button",
           },
           {
             label: "Tabs",
-            url: "/components/tabs",
+            url: "/tabs",
           },
         ],
       },
@@ -120,6 +122,7 @@ export const Sidebar = () => {
                     <div key={index}>
                       {item.child ? (
                         <MenuItemChild
+                          prefix={item.prefix}
                           as={item.as}
                           icon={item.icon}
                           label={item.label}
@@ -168,6 +171,7 @@ const MenuTitle = ({ children }: PropsWithChildren) => {
 
 type menuChildProps = {
   as?: string;
+  prefix?: string;
   data: {
     label: string;
     icon?: React.ReactNode;
@@ -176,7 +180,7 @@ type menuChildProps = {
   label: string;
   icon?: React.ReactNode;
 };
-const MenuItemChild = ({ data, icon, label, as }: menuChildProps) => {
+const MenuItemChild = ({ data, icon, label, prefix, as }: menuChildProps) => {
   const [isCollapsed, setCollapsed] = useState([""]);
   const router = usePathname();
 
@@ -204,7 +208,7 @@ const MenuItemChild = ({ data, icon, label, as }: menuChildProps) => {
               <div className="w-full" key={i}>
                 <MenuItem
                   className="pl-10"
-                  href={item.url}
+                  href={`${prefix}${item.url}`}
                   label={item.label}
                   icon={<Dot />}
                 />

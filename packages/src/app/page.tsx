@@ -1,15 +1,5 @@
-import HeaderPage from "@/components/header/header-page";
-import { MainContent } from "@/components/layout";
-import { SalesStatistic, Summary } from "@/features/dashboard";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div>
-      <HeaderPage />
-      <MainContent>
-        <Summary />
-        <SalesStatistic />
-      </MainContent>
-    </div>
-  );
+  redirect("/ui/dashboard");
 }
