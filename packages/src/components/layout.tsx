@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { motion, Variants } from "framer-motion";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { LoadingPage } from "./loader/loading-page";
+import { useLayout } from "@/hooks/use-layout";
 
 export const MainContent = ({
   children,
@@ -23,20 +24,10 @@ export const MainContent = ({
 
 export default function Layout({ children }: PropsWithChildren) {
   const { sidebarOpen, screentype } = useLayoutStore((state) => state);
-
-  const layoutVariant: Variants = {
-    open:
-      screentype === "DESKTOP"
-        ? {
-            marginLeft: "257px",
-          }
-        : {
-            marginLeft: 0,
-          },
-  };
+  const {} = useLayout();
 
   return (
-    <LoadingPage>
+    <div>
       <Navbar />
       <Sidebar />
       <motion.div
@@ -47,11 +38,18 @@ export default function Layout({ children }: PropsWithChildren) {
           type: "spring",
           duration: 0.5,
         }}
-        variants={layoutVariant}
-        className={`mt-[76px]`}
+        variants={{
+          open: {
+            marginLeft: "var(--open-sidebar)",
+          },
+          closed: {
+            marginLeft: "var(--close-sidebar)",
+          },
+        }}
+        className={`mt-[76px] [--close-sidebar:var(--w-sidebar-mobile)] [--open-sidebar:0px] lg:[--close-sidebar:0px] lg:[--open-sidebar:var(--w-sidebar-desktop)]`}
       >
         {children}
       </motion.div>
-    </LoadingPage>
+    </div>
   );
 }

@@ -2,14 +2,15 @@ import { useLayoutStore } from "@/store/layout";
 import { useEffect } from "react";
 
 export const useLayout = () => {
-  const { screentype, setScreenType } = useLayoutStore((state) => state);
+  const { screentype, setScreenType, setSidebarOpen } = useLayoutStore(
+    (state) => state,
+  );
 
   const deviceChecking = () => {
     const width = window.innerWidth;
-    if (width <= 1024) {
-      return setScreenType("MOBILE");
+    if (width > 1024) {
+      setSidebarOpen(true);
     }
-    setScreenType("DESKTOP");
   };
 
   useEffect(() => {
@@ -18,11 +19,6 @@ export const useLayout = () => {
       window.removeEventListener("resize", deviceChecking);
     };
   });
-
-  useEffect(() => {
-    deviceChecking();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return { size: screentype };
 };

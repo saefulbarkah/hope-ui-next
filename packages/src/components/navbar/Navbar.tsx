@@ -13,56 +13,30 @@ export const Navbar = () => {
   const { sidebarOpen, screentype, toggleSidebar } = useLayoutStore(
     (state) => state,
   );
-  const navbarVariant: Variants = {
-    open:
-      screentype === "DESKTOP"
-        ? {
-            marginLeft: "257px",
-          }
-        : {
-            marginLeft: 0,
-          },
-    close: { marginLeft: 0 },
-  };
-
-  const openMenuVariant: Variants = {
-    open:
-      screentype === "DESKTOP" ? { translateX: "-28px" } : { translateX: 0 },
-    close: screentype === "DESKTOP" ? { translateX: 0 } : { translateX: 0 },
-  };
 
   return (
     <motion.div
-      initial={
-        screentype === "MOBILE"
-          ? {
-              marginLeft: 0,
-            }
-          : {
-              marginLeft: "257px",
-            }
-      }
-      animate={sidebarOpen ? "open" : "close"}
-      variants={navbarVariant}
+      initial={false}
+      animate={sidebarOpen ? "open" : "closed"}
+      variants={{
+        open: {
+          marginLeft: "var(--open-sidebar)",
+        },
+        closed: {
+          marginLeft: "var(--closed-sidebar)",
+        },
+      }}
       transition={{
         bounce: 0,
         type: "spring",
         duration: 0.5,
       }}
-      className={"fixed inset-x-0 top-0 z-50 bg-white ease-in-out"}
+      className={
+        "fixed inset-x-0 top-0 z-50 bg-white ease-in-out [--closed-sidebar:0px] [--open-sidebar:0px] lg:[--closed-sidebar:0px] lg:[--open-sidebar:var(--w-sidebar-desktop)]"
+      }
     >
       <div className="relative flex h-[76px] items-center justify-between px-8 py-4">
         <motion.div
-          variants={openMenuVariant}
-          initial={
-            screentype === "MOBILE"
-              ? {
-                  translateX: 0,
-                }
-              : {
-                  translateX: "-28px",
-                }
-          }
           animate={sidebarOpen ? "open" : "close"}
           transition={{
             bounce: 0,

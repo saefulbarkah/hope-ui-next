@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      width: {
+        "sidebar-mobile": "var(--w-sidebar-mobile)",
+        "sidebar-desktop": "var(--w-sidebar-desktop)",
+      },
       colors: {
         primary: {
           DEFAULT: "#3A57E8",
