@@ -1,1 +1,1 @@
-export * from "./tab-underine";
+export * from "./Tabs";

@@ -1,6 +1,7 @@
 "use client";
 import React, {
   Dispatch,
+  PropsWithChildren,
   SetStateAction,
   createContext,
   useContext,
@@ -8,10 +9,16 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import {
+  Tabs as Wrapper,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../ui/tabs";
 import {
   TabsContentProps,
   TabsListProps,
+  TabsProps,
   TabsTriggerProps,
 } from "@radix-ui/react-tabs";
 import { cn } from "@/lib/utils";
@@ -25,6 +32,7 @@ type indicatorState = {
     width: number;
   };
   setIndicator: Dispatch<SetStateAction<{ left: number; width: number }>>;
+  type?: "underline" | "badge";
 };
 
 type ContextType = indicatorState;
@@ -33,27 +41,34 @@ const Context = createContext<ContextType | null>(null);
 const Provider = Context.Provider;
 
 // indicator variant
-const indicatorVariants = cva(
-  "absolute bottom-0 h-[3px] w-full rounded-full bg-black",
-  {
-    variants: {
-      variant: {
-        primary: "bg-primary",
-      },
+const indicatorVariants = cva("absolute", {
+  variants: {
+    variant: {
+      primary: "bg-primary",
     },
-    defaultVariants: {
-      variant: "primary",
+    type: {
+      underline: "bottom-0 h-[3px] w-full rounded-full",
+      badge: "inset-0 h-full rounded-lg",
     },
   },
-);
+  defaultVariants: {
+    variant: "primary",
+    type: "underline",
+  },
+});
 
-const Store = ({ children }: React.PropsWithChildren) => {
+type store = React.PropsWithChildren & {
+  type?: indicatorState["type"];
+};
+const Store = ({ children, type = "underline" }: store) => {
   const [indicator, setIndicator] = useState<indicatorState["indicator"]>({
     left: 0,
     width: 0,
   });
 
-  return <Provider value={{ indicator, setIndicator }}>{children}</Provider>;
+  return (
+    <Provider value={{ indicator, setIndicator, type }}>{children}</Provider>
+  );
 };
 
 type INDICATOR_COLOR = VariantProps<typeof indicatorVariants>["variant"];
@@ -68,33 +83,34 @@ const List = ({
   ...props
 }: listProps) => {
   return (
-    <Store>
-      <TabsList
-        className={cn(
-          `relative w-full justify-start bg-transparent p-0`,
-          className,
-        )}
-      >
-        <div className="relative flex h-full w-full items-center justify-start">
-          {children}
-          <Indicator variant={indicatorColor} />
-        </div>
-        <div className="absolute inset-x-0 bottom-0 z-10 h-[1px] bg-black opacity-10 dark:bg-white" />
-      </TabsList>
-    </Store>
+    <TabsList
+      className={cn(
+        `relative w-full justify-start bg-transparent p-0`,
+        className,
+      )}
+      {...props}
+    >
+      <div className="relative flex h-full w-full items-center justify-start">
+        <div className="relative z-50">{children}</div>
+        <Indicator type={"underline"} variant={indicatorColor} />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 z-10 h-[1px] bg-black opacity-10 dark:bg-white" />
+    </TabsList>
   );
 };
 
 interface indicatorProps extends VariantProps<typeof indicatorVariants> {}
-const Indicator = ({ variant }: indicatorProps) => {
-  const { indicator } = useContext(Context) as ContextType;
+const Indicator = ({ variant, type = "underline" }: indicatorProps) => {
+  const { indicator, type: typeTab } = useContext(Context) as ContextType;
 
   return (
     <motion.div
       initial={{ left: 0, width: 0 }}
       animate={{ left: indicator.left, width: indicator.width }}
       transition={{ bounce: 0, type: "spring", duration: 0.3 }}
-      className={cn(indicatorVariants({ variant }))}
+      className={cn(
+        indicatorVariants({ variant, type: typeTab as typeof type }),
+      )}
     />
   );
 };
@@ -112,7 +128,7 @@ const Item = ({
   ...props
 }: itemProps) => {
   const [isChange, setChange] = useState(false);
-  const { setIndicator } = useContext(Context) as ContextType;
+  const { setIndicator, type } = useContext(Context) as ContextType;
   const triggerRef = useRef<null | HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -132,9 +148,12 @@ const Item = ({
   return (
     <>
       <TabsTrigger
+        onMouseDown={() => {
+          setChange((state) => !state);
+        }}
         ref={triggerRef}
         className={cn(
-          `border-none capitalize shadow-none outline-none data-[state=active]:bg-transparent`,
+          `border-none capitalize shadow-none outline-none data-[state=active]:bg-transparent ${type === "badge" && "data-[state=active]:text-white"}`,
           className,
         )}
         value={value}
@@ -159,9 +178,19 @@ const Content = ({ value, className, children, ...props }: ContentProps) => {
   );
 };
 
-export const TabUnderLine = {
-  List,
-  Tabs,
-  Item,
-  Content,
+interface Ttabs extends PropsWithChildren, TabsProps {
+  type?: indicatorState["type"];
+}
+const Tabs = ({ children, type = "underline", ...props }: Ttabs) => {
+  return (
+    <Store type={type}>
+      <Wrapper {...props}>{children}</Wrapper>
+    </Store>
+  );
 };
+
+Tabs.Content = Content;
+Tabs.Item = Item;
+Tabs.List = List;
+
+export { Tabs };
