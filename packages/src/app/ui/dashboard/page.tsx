@@ -6,7 +6,10 @@ import React from "react";
 export default function Dashboard() {
   return (
     <div>
-      <HeaderPage />
+      <HeaderPage
+        title="Dashboard"
+        description="amet consectetur adipisicing elit. Quo explicabo aliquam error perferendis aliquid veritatis accusamus aperiam"
+      />
       <MainContent>
         <Summary />
         <SalesStatistic />

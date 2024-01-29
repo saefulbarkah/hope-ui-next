@@ -14,7 +14,7 @@ export default function HeaderPage({
   title,
 }: Props) {
   return (
-    <div className="relative h-[120px]">
+    <div className="relative">
       {withBanner && (
         <div className="pointer-events-none absolute left-0 right-0 top-0 -z-50 lg:h-[180px] 2xl:h-[234px]">
           <Image

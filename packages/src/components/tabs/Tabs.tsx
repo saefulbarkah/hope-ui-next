@@ -23,7 +23,7 @@ import {
 } from "@radix-ui/react-tabs";
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 // state
 type indicatorState = {
@@ -82,6 +82,7 @@ const List = ({
   indicatorColor = "primary",
   ...props
 }: listProps) => {
+  const { type } = useContext(Context) as ContextType;
   return (
     <TabsList
       className={cn(
@@ -94,24 +95,36 @@ const List = ({
         <div className="relative z-50">{children}</div>
         <Indicator type={"underline"} variant={indicatorColor} />
       </div>
-      <div className="absolute inset-x-0 bottom-0 z-10 h-[1px] bg-black opacity-10 dark:bg-white" />
+      <div
+        className={`absolute inset-x-0 bottom-0 z-10 h-[1px] bg-black opacity-10 dark:bg-white ${type === "badge" && "hidden"}`}
+      />
     </TabsList>
   );
 };
 
 interface indicatorProps extends VariantProps<typeof indicatorVariants> {}
 const Indicator = ({ variant, type = "underline" }: indicatorProps) => {
+  const [render, setRender] = useState(false);
   const { indicator, type: typeTab } = useContext(Context) as ContextType;
 
+  useEffect(() => {
+    setRender(true);
+  }, []);
+
   return (
-    <motion.div
-      initial={{ left: 0, width: 0 }}
-      animate={{ left: indicator.left, width: indicator.width }}
-      transition={{ bounce: 0, type: "spring", duration: 0.3 }}
-      className={cn(
-        indicatorVariants({ variant, type: typeTab as typeof type }),
+    <AnimatePresence>
+      {render && (
+        <motion.div
+          key={"indicator-tab"}
+          initial={false}
+          animate={{ left: indicator.left, width: indicator.width }}
+          transition={{ bounce: 0, type: "spring", duration: 0.3 }}
+          className={cn(
+            indicatorVariants({ variant, type: typeTab as typeof type }),
+          )}
+        />
       )}
-    />
+    </AnimatePresence>
   );
 };
 

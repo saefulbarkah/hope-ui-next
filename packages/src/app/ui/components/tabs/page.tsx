@@ -7,7 +7,7 @@ export default function Tabs() {
   return (
     <div>
       <HeaderPage title="Tabs Component" />
-      <MainContent className="mt-20">
+      <MainContent>
         <FeatureTab />
       </MainContent>
     </div>
