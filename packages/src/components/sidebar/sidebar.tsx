@@ -3,7 +3,7 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
-import { Dot, Layers2, LayoutDashboard, OptionIcon } from "lucide-react";
+import { Dot, Layers2, LayoutDashboard, Settings2 } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -43,25 +43,9 @@ const menus: menu[] = [
       },
       {
         label: "Menu Style",
-        icon: <OptionIcon />,
+        icon: <Settings2 />,
         url: null,
         as: "menu-style",
-        child: [
-          {
-            label: "Example style 1",
-            url: "/#example-1",
-          },
-          {
-            label: "Example style 2",
-            url: "/#example-2",
-          },
-        ],
-      },
-      {
-        label: "Menu Style",
-        icon: <OptionIcon />,
-        url: null,
-        as: "menu-style-2",
         child: [
           {
             label: "Example style 1",
@@ -76,7 +60,7 @@ const menus: menu[] = [
     ],
   },
   {
-    pageTitle: "Home",
+    pageTitle: "Elements",
     items: [
       {
         label: "Components",
