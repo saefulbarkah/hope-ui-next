@@ -1,7 +1,7 @@
 "use client";
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Separator } from "../ui/separator";
-import { Button, ButtonProps } from "../ui/button";
+import { Button } from "../ui/button";
 import { Dot, Layers2, LayoutDashboard, OptionIcon } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
@@ -56,6 +56,22 @@ const menus: menu[] = [
           },
         ],
       },
+      {
+        label: "Menu Style",
+        icon: <OptionIcon />,
+        url: null,
+        as: "menu-style-2",
+        child: [
+          {
+            label: "Example style 1",
+            url: "/#example-1",
+          },
+          {
+            label: "Example style 2",
+            url: "/#example-2",
+          },
+        ],
+      },
     ],
   },
   {
@@ -84,6 +100,8 @@ const menus: menu[] = [
 
 export const Sidebar = () => {
   const { sidebarOpen, toggleSidebar } = useLayoutStore((state) => state);
+  const [isCollapsed, setCollapsed] = useState("");
+  const router = usePathname();
 
   const sidebarVariant: Variants = {
     open: {
@@ -93,6 +111,22 @@ export const Sidebar = () => {
       x: "var(--sidebar-closed)",
     },
   };
+
+  useEffect(() => {
+    menus.flatMap((menu) =>
+      menu.items
+        .filter((item) => (item.child ? item.child : undefined))
+        .flatMap((item) =>
+          item.child
+            ? item.child?.map((child) => {
+                if (`${item.prefix}${child.url}` === router) {
+                  return setCollapsed(`example`);
+                }
+              })
+            : null,
+        ),
+    );
+  }, []);
 
   return (
     <div className="relative">
@@ -113,14 +147,27 @@ export const Sidebar = () => {
         </div>
         <Separator />
         <div className="mt-5 px-2">
-          {menus.map((item, i) => {
-            return (
-              <div key={i} className="mt-2">
-                <MenuTitle>Home</MenuTitle>
-                {item.items.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      {item.child ? (
+          {menus.map((menu, menuIndex) => (
+            <div key={menuIndex} className="mt-2">
+              <MenuTitle>{menu.pageTitle}</MenuTitle>
+              <Accordion
+                type="single"
+                collapsible
+                value={isCollapsed}
+                defaultValue={isCollapsed}
+                onValueChange={setCollapsed}
+              >
+                {menu.items.map((item, itemIndex) => (
+                  <React.Fragment key={itemIndex}>
+                    <>
+                      {!item.child && (
+                        <MenuItem
+                          href={item.url ? `${item.url}` : "#"}
+                          label={item.label}
+                          icon={item.icon}
+                        />
+                      )}
+                      {item.child && (
                         <MenuItemChild
                           prefix={item.prefix}
                           as={item.as}
@@ -128,22 +175,16 @@ export const Sidebar = () => {
                           label={item.label}
                           data={item.child}
                         />
-                      ) : (
-                        <MenuItem
-                          href={`${item.url}`}
-                          label="Dashboard"
-                          icon={<LayoutDashboard />}
-                        />
                       )}
-                      <div className="px-5">
-                        <Separator />
-                      </div>
-                    </div>
-                  );
-                })}
+                    </>
+                  </React.Fragment>
+                ))}
+              </Accordion>
+              <div className="px-5">
+                <Separator />
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </motion.div>
       <AnimatePresence>
@@ -194,20 +235,8 @@ type menuChildProps = {
   icon?: React.ReactNode;
 };
 const MenuItemChild = ({ data, icon, label, prefix, as }: menuChildProps) => {
-  const [isCollapsed, setCollapsed] = useState([""]);
-  const router = usePathname();
-
-  useEffect(() => {
-    data.filter((item) => {
-      if (item.url === router) {
-        setCollapsed([as as string]);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <Accordion type="multiple" value={isCollapsed} onValueChange={setCollapsed}>
+    <>
       <AccordionItem value={as as string} className="border-0">
         <AccordionTrigger className="h-0 rounded px-6 py-6 no-underline hover:bg-light/10 hover:no-underline data-[state=closed]:hover:text-black">
           <div className="flex items-center">
@@ -230,7 +259,7 @@ const MenuItemChild = ({ data, icon, label, prefix, as }: menuChildProps) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </>
   );
 };
 
