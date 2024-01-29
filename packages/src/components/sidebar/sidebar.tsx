@@ -77,6 +77,10 @@ const menus: menu[] = [
             label: "Tabs",
             url: "/tabs",
           },
+          {
+            label: "Widget",
+            url: "/widget",
+          },
         ],
       },
     ],
