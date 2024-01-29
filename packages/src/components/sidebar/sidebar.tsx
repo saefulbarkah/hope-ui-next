@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Separator } from "../ui/separator";
