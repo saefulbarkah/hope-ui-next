@@ -71,7 +71,7 @@ const TabBadge = () => {
 
 export const FeatureTab = () => {
   return (
-    <div className="grid grid-cols-2 items-start gap-5">
+    <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
       <TabUnderLine />
       <TabBadge />
     </div>
