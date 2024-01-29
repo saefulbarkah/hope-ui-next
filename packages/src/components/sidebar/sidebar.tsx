@@ -105,7 +105,7 @@ export const Sidebar = () => {
           duration: 0.5,
         }}
         variants={sidebarVariant}
-        className={`w-sidebar-mobile lg:w-sidebar-desktop fixed bottom-0 left-0 top-0 z-[60] bg-white ease-in-out [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
+        className={`fixed bottom-0 left-0 top-0 z-[60] w-sidebar-mobile bg-white ease-in-out [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
       >
         <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
           <Logo />
@@ -146,25 +146,30 @@ export const Sidebar = () => {
           })}
         </div>
       </motion.div>
-      <motion.div
-        initial={false}
-        key={"sidebar-outsidde"}
-        animate={sidebarOpen ? "open" : "closed"}
-        variants={{
-          open: {
-            opacity: "var(--sidebar-open-opacity)",
-          },
-          closed: {
-            opacity: "var(--sidebar-closed-opacity)",
-          },
-        }}
-        transition={{ bounce: 0, type: "spring", duration: 0.5 }}
-        className={cn(
-          "fixed inset-0 z-[55] block cursor-pointer bg-black/20 backdrop-blur-sm [--sidebar-closed-opacity:100%] [--sidebar-open-opacity:0%] lg:hidden",
-          `${sidebarOpen ? "pointer-events-none" : "pointer-events-auto"}`,
+      <AnimatePresence>
+        {!sidebarOpen && (
+          <motion.div
+            initial={"closed"}
+            key={"sidebar-outsidde"}
+            animate={"open"}
+            exit={"closed"}
+            variants={{
+              open: {
+                opacity: "var(--sidebar-open-opacity)",
+              },
+              closed: {
+                opacity: "var(--sidebar-closed-opacity)",
+              },
+            }}
+            transition={{ bounce: 0, type: "spring", duration: 0.5 }}
+            className={cn(
+              "fixed inset-0 z-[55] block cursor-pointer bg-black/50 backdrop-blur-[1px] [--sidebar-closed-opacity:0%] [--sidebar-open-opacity:100%] lg:hidden",
+              `${sidebarOpen ? "pointer-events-none" : "pointer-events-auto"}`,
+            )}
+            onClick={() => toggleSidebar()}
+          />
         )}
-        onClick={() => toggleSidebar()}
-      />
+      </AnimatePresence>
     </div>
   );
 };
