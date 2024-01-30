@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import CircularWidget, { circularColor } from "@/components/widget/circular";
+import CircularWidget, { circularColor } from "@/components/progress/circular";
 
 type summaryProps = {
   name: string;

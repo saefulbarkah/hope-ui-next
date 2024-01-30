@@ -5,9 +5,7 @@ import React, { PropsWithChildren } from "react";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
 import { cn } from "@/lib/utils";
-import { motion, Variants } from "framer-motion";
-import { useMediaQuery } from "@/hooks/use-media-query";
-import { LoadingPage } from "./loader/loading-page";
+import { motion } from "framer-motion";
 import { useLayout } from "@/hooks/use-layout";
 
 export const MainContent = ({
@@ -16,7 +14,7 @@ export const MainContent = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <main className={cn(`container`, className)} {...props}>
+    <main className={cn(`container pb-5`, className)} {...props}>
       {children}
     </main>
   );
