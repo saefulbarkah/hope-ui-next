@@ -272,7 +272,7 @@ const MenuItem = ({
         size={"default"}
         variant={router === href ? "primary" : "ghost"}
         className={cn(
-          `flex w-full items-center justify-start py-2.5 text-start capitalize ${router === href ? "text-white" : "text-[#8A92A6]"}`,
+          `flex w-full items-center justify-start py-2.5 text-start capitalize shadow-none motion-reduce:transition-none ${router === href ? "text-white" : "text-[#8A92A6]"}`,
           className,
         )}
       >
