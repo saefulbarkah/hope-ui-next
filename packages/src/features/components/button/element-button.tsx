@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AlertTriangleIcon, Home, Info } from "lucide-react";
 import React from "react";
 
 const SolidButton = () => {
@@ -88,6 +89,61 @@ const SizesButton = () => {
   );
 };
 
+const IconButton = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Icon Button</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button variant={"primary"} size={"icon"}>
+            <Home />
+          </Button>
+          <Button variant={"primary"} withIcon={<Home className="h-6 w-6" />}>
+            Home
+          </Button>
+          <Button variant={"info"} withIcon={<Info className="h-6 w-6" />}>
+            Info
+          </Button>
+          <Button
+            variant={"warning"}
+            withIcon={<AlertTriangleIcon className="h-6 w-6" />}
+          >
+            Warning
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const BadgeButton = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Icon Button</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button variant={"primary"} size={"badge"}>
+            primary
+          </Button>
+          <Button variant={"danger"} size={"badge"}>
+            danger
+          </Button>
+          <Button variant={"info"} size={"badge"}>
+            info
+          </Button>
+          <Button variant={"dark"} size={"badge"}>
+            dark
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
 export const ElementButton = () => {
   return (
     <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
@@ -95,6 +151,8 @@ export const ElementButton = () => {
       <OutlineButton />
       <SemiButton />
       <SizesButton />
+      <IconButton />
+      <BadgeButton />
     </div>
   );
 };

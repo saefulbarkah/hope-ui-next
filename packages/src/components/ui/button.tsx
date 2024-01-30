@@ -65,6 +65,7 @@ const buttonVariants = cva(
         ],
       },
       size: {
+        badge: "px-2 py-1 text-xs rounded-full",
         default: "py-2 px-6 text-base",
         lg: "py-2 px-6 text-[19px] leading-[175%]",
         sm: "px-4 py-1 text-xs",
@@ -82,18 +83,20 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
+  withIcon?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
+  ({ className, variant, size, withIcon, children, ...props }, ref) => {
     return (
-      <Comp
+      <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        {withIcon ? <i className="mr-1.5">{withIcon}</i> : null}
+        {children}
+      </button>
     );
   },
 );
