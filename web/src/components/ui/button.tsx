@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import { theme } from "../../theme/index";
 
 const primaryVariant = {
   primary:
@@ -53,13 +54,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        ...primaryVariant,
-        ...dangerVariant,
-        ...infoVariant,
-        ...darkVariant,
-        ...secondaryVariant,
-        ...ghostVariant,
-        ...warningVariant,
+        ...theme.colors,
         link: [
           "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
         ],

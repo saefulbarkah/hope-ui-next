@@ -5,6 +5,8 @@ import React from "react";
 import { ProgressBar } from "@/components/progress/progress-bar";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
+import { theme } from "@/theme";
+import { cn } from "@/lib/utils";
 
 const Circular = () => {
   return (
@@ -69,9 +71,9 @@ const Bar = () => {
               <h3 className="text-3xl font-medium">2.648</h3>
               <h3 className="font-medium text-slate-500">26.84%</h3>
             </div>
-            <Button variant={"semi-primary"} size={"icon"} as={"div"}>
+            <div className={cn("rounded p-1.5", theme.colors["semi-primary"])}>
               <ArrowUp />
-            </Button>
+            </div>
           </div>
           <ProgressBar value={10} noAnimation className="mt-5" />
         </CardContent>
@@ -84,9 +86,9 @@ const Bar = () => {
               <h3 className="text-3xl font-medium">2.648</h3>
               <h3 className="font-medium text-slate-500">26.84%</h3>
             </div>
-            <Button variant={"semi-danger"} size={"icon"} as={"div"}>
+            <div className={cn("rounded p-1.5", theme.colors["semi-danger"])}>
               <ArrowUp />
-            </Button>
+            </div>
           </div>
           <ProgressBar value={10} variant={"danger"} className="mt-5" />
         </CardContent>
@@ -99,9 +101,9 @@ const Bar = () => {
               <h3 className="text-3xl font-medium">2.648</h3>
               <h3 className="font-medium text-slate-500">26.84%</h3>
             </div>
-            <Button variant={"semi-info"} size={"icon"} as={"div"}>
+            <div className={cn("rounded p-1.5", theme.colors["semi-warning"])}>
               <ArrowUp />
-            </Button>
+            </div>
           </div>
           <ProgressBar value={10} variant={"info"} className="mt-5" />
         </CardContent>
