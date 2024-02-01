@@ -15,77 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useLayoutStore } from "@/store/layout";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-
-type menu = {
-  pageTitle: string;
-  items: {
-    label: string;
-    icon: React.ReactNode;
-    url: LinkProps["href"] | null;
-    as?: string;
-    prefix?: string;
-    child?: {
-      label: string;
-      icon?: React.ReactNode;
-      url: string | URL;
-    }[];
-  }[];
-};
-
-const menus: menu[] = [
-  {
-    pageTitle: "Home",
-    items: [
-      {
-        label: "Dashboard",
-        icon: <LayoutDashboard />,
-        url: "/ui/dashboard",
-      },
-      {
-        label: "Menu Style",
-        icon: <Settings2 />,
-        url: null,
-        as: "menu-style",
-        child: [
-          {
-            label: "Example style 1",
-            url: "/#example-1",
-          },
-          {
-            label: "Example style 2",
-            url: "/#example-2",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    pageTitle: "Elements",
-    items: [
-      {
-        label: "Components",
-        icon: <Layers2 />,
-        url: null,
-        as: "example",
-        prefix: "/ui/components",
-        child: [
-          {
-            label: "Button",
-            url: "/button",
-          },
-          {
-            label: "Tabs",
-            url: "/tabs",
-          },
-          {
-            label: "Widget",
-            url: "/widget",
-          },
-        ],
-      },
-    ],
-  },
-];
+import { routeMenus } from "@/config/route";
 
 export const Sidebar = () => {
   const { sidebarOpen, toggleSidebar } = useLayoutStore((state) => state);
@@ -102,7 +32,7 @@ export const Sidebar = () => {
   };
 
   useEffect(() => {
-    menus.flatMap((menu) =>
+    routeMenus.flatMap((menu) =>
       menu.items
         .filter((item) => (item.child ? item.child : undefined))
         .flatMap((item) =>
@@ -140,7 +70,7 @@ export const Sidebar = () => {
             </div>
             <Separator />
             <div className="mt-5 px-2">
-              {menus.map((menu, menuIndex) => (
+              {routeMenus.map((menu, menuIndex) => (
                 <div key={menuIndex} className="mt-2">
                   <MenuTitle>{menu.pageTitle}</MenuTitle>
                   <Accordion
