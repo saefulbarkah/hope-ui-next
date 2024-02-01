@@ -16,7 +16,7 @@ const buttonVariants = cva(
       },
       size: {
         badge: "px-2 py-1 text-xs rounded-full",
-        default: "py-2 px-6 text-base",
+        default: "py-2 px-3 text-base",
         lg: "py-2 px-6 text-[19px] leading-[175%]",
         sm: "px-4 py-1 text-xs",
         xs: "px-2 text-xs",

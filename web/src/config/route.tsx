@@ -31,22 +31,6 @@ export const routeMenus: menu[] = [
         icon: <StickyNote />,
         url: "/blank",
       },
-      {
-        label: "Menu Style",
-        icon: <Settings2 />,
-        url: null,
-        as: "menu-style",
-        child: [
-          {
-            label: "Example style 1",
-            url: "/#example-1",
-          },
-          {
-            label: "Example style 2",
-            url: "/#example-2",
-          },
-        ],
-      },
     ],
   },
   {
@@ -70,6 +54,10 @@ export const routeMenus: menu[] = [
           {
             label: "Tabs",
             url: "/tabs",
+          },
+          {
+            label: "Toast",
+            url: "/toast",
           },
           {
             label: "Widget",
