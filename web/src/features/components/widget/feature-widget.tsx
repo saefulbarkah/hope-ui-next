@@ -3,12 +3,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import CircularWidget from "@/components/progress/circular";
 import React from "react";
 import { ProgressBar } from "@/components/progress/progress-bar";
-import {
-  ArrowUp,
-  CircleDollarSign,
-  DollarSign,
-  SignalHigh,
-} from "lucide-react";
+import { ArrowUp, CircleDollarSign } from "lucide-react";
 import { theme } from "@/theme";
 import { cn } from "@/lib/utils";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
