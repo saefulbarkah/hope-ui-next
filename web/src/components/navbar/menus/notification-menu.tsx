@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -10,7 +11,9 @@ export default function NotificationMenu() {
   return (
     <Popover>
       <PopoverTrigger>
-        <Bell className="h-6 w-6 text-gray-600" />
+        <Button variant={"ghost"} size={"icon"}>
+          <Bell className="h-6 w-6 text-gray-600" />
+        </Button>
       </PopoverTrigger>
       <PopoverContent sideOffset={30} className="w-52 text-center">
         <p>on development....</p>

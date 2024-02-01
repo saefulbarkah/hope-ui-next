@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -10,7 +11,9 @@ export default function MessageMenu() {
   return (
     <Popover>
       <PopoverTrigger>
-        <Mail className="h-6 w-6 text-gray-600" />
+        <Button variant={"ghost"} size={"icon"}>
+          <Mail className="h-6 w-6 text-gray-600" />
+        </Button>
       </PopoverTrigger>
       <PopoverContent sideOffset={30} className="w-52 text-center">
         <p>on development....</p>
