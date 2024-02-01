@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { LogOut, Rss, User } from "lucide-react";
@@ -38,11 +38,10 @@ export default function UserMenu() {
   return (
     <Popover open={menuState.isOpen} onOpenChange={menuState.setOpen}>
       <PopoverTrigger asChild>
-        <button className="flex h-full w-full appearance-none items-center gap-4 p-2 text-start outline-none">
+        <button className="relative flex h-[45px] w-[45px] items-center justify-center gap-4 p-2 text-start outline-none">
           <Image
             src={`https://i.pravatar.cc/300`}
-            width={45}
-            height={45}
+            fill
             unoptimized
             alt="avatar"
             className="select-none rounded-full"
@@ -78,21 +77,6 @@ export default function UserMenu() {
             </MenuItem>
           </div>
         </div>
-        {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
-          <User className="mr-2 h-4 w-4" />
-          Profile
-        </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">
-          <Rss className="mr-2 h-4 w-4" />
-          Subscription
-        </DropdownMenuItem>
-        <Separator className="my-2" />
-        <DropdownMenuItem className="cursor-pointer">
-          <LogOut className="mr-2 h-4 w-4" />
-          Logout
-        </DropdownMenuItem> */}
       </PopoverContent>
     </Popover>
   );
