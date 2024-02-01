@@ -49,69 +49,64 @@ export const Sidebar = () => {
 
   return (
     <div className="relative">
-      <AnimatePresence initial={false}>
-        {sidebarOpen && (
-          <motion.div
-            key={"sidebar-layout"}
-            initial={"close"}
-            animate={"open"}
-            exit={"close"}
-            transition={{
-              bounce: 0,
-              type: "spring",
-              duration: 0.5,
-            }}
-            variants={sidebarVariant}
-            className={`fixed bottom-0 left-0 top-0 z-[60] w-sidebar-mobile bg-white will-change-transform [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
-          >
-            <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
-              <Logo />
-              <h2 className="text-3xl">Hope UI</h2>
+      <motion.div
+        key={"sidebar-layout"}
+        initial={sidebarOpen ? "open" : "close"}
+        animate={sidebarOpen ? "open" : "close"}
+        transition={{
+          bounce: 0,
+          type: "spring",
+          duration: 0.5,
+        }}
+        variants={sidebarVariant}
+        className={`fixed bottom-0 left-0 top-0 z-[60] w-sidebar-mobile bg-white will-change-transform [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
+      >
+        <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
+          <Logo />
+          <h2 className="text-3xl">Hope UI</h2>
+        </div>
+        <Separator />
+        <div className="mt-5 px-2">
+          {routeMenus.map((menu, menuIndex) => (
+            <div key={menuIndex} className="mt-2">
+              <MenuTitle>{menu.pageTitle}</MenuTitle>
+              <Accordion
+                type="single"
+                collapsible
+                value={isCollapsed}
+                defaultValue={isCollapsed}
+                onValueChange={setCollapsed}
+              >
+                {menu.items.map((item, itemIndex) => (
+                  <React.Fragment key={itemIndex}>
+                    <>
+                      {!item.child && (
+                        <MenuItem
+                          href={item.url ? `${item.url}` : "#"}
+                          label={item.label}
+                          icon={item.icon}
+                        />
+                      )}
+                      {item.child && (
+                        <MenuItemChild
+                          prefix={item.prefix}
+                          as={item.as}
+                          icon={item.icon}
+                          label={item.label}
+                          data={item.child}
+                        />
+                      )}
+                    </>
+                  </React.Fragment>
+                ))}
+              </Accordion>
+              <div className="px-5">
+                <Separator />
+              </div>
             </div>
-            <Separator />
-            <div className="mt-5 px-2">
-              {routeMenus.map((menu, menuIndex) => (
-                <div key={menuIndex} className="mt-2">
-                  <MenuTitle>{menu.pageTitle}</MenuTitle>
-                  <Accordion
-                    type="single"
-                    collapsible
-                    value={isCollapsed}
-                    defaultValue={isCollapsed}
-                    onValueChange={setCollapsed}
-                  >
-                    {menu.items.map((item, itemIndex) => (
-                      <React.Fragment key={itemIndex}>
-                        <>
-                          {!item.child && (
-                            <MenuItem
-                              href={item.url ? `${item.url}` : "#"}
-                              label={item.label}
-                              icon={item.icon}
-                            />
-                          )}
-                          {item.child && (
-                            <MenuItemChild
-                              prefix={item.prefix}
-                              as={item.as}
-                              icon={item.icon}
-                              label={item.label}
-                              data={item.child}
-                            />
-                          )}
-                        </>
-                      </React.Fragment>
-                    ))}
-                  </Accordion>
-                  <div className="px-5">
-                    <Separator />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </motion.div>
       <AnimatePresence initial={false}>
         {!sidebarOpen && (
           <motion.div
@@ -129,7 +124,7 @@ export const Sidebar = () => {
             }}
             transition={{ bounce: 0, type: "spring", duration: 0.5 }}
             className={cn(
-              "fixed inset-0 z-[55] block cursor-pointer bg-black/50 backdrop-blur-[1px] [--sidebar-closed-opacity:0%] [--sidebar-open-opacity:100%] lg:hidden",
+              "fixed inset-0 z-[55] block cursor-pointer bg-black/60 [--sidebar-closed-opacity:0%] [--sidebar-open-opacity:100%] lg:hidden",
               `${sidebarOpen ? "pointer-events-none" : "pointer-events-auto"}`,
             )}
             onClick={() => toggleSidebar()}
