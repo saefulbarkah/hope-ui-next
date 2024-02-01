@@ -9,6 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { create } from "zustand";
+import { cn } from "@/lib/utils";
 
 const menusRouting = [
   {
@@ -38,15 +39,22 @@ export default function UserMenu() {
   return (
     <Popover open={menuState.isOpen} onOpenChange={menuState.setOpen}>
       <PopoverTrigger asChild>
-        <button className="relative flex h-[45px] w-[45px] items-center justify-center gap-4 p-2 text-start outline-none">
+        <button
+          className={cn(
+            '"relative active:bg-slate-50" flex items-center justify-center gap-4 p-2 text-start outline-none transition-colors',
+            menuState.isOpen && "bg-slate-50",
+          )}
+        >
           <Image
             src={`https://i.pravatar.cc/300`}
-            fill
+            width={45}
+            height={45}
+            quality={50}
             unoptimized
             alt="avatar"
             className="select-none rounded-full"
           />
-          <div className="pointer-events-none hidden flex-col lg:flex">
+          <div className="pointer-events-none relative hidden flex-col lg:flex">
             <p>Saeful Barkah</p>
             <p className="text-sm text-[#8A92A6]">Software Engineer</p>
           </div>
