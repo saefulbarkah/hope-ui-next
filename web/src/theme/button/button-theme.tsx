@@ -38,8 +38,7 @@ const secondaryVariant = {
 };
 
 const ghostVariant = {
-  ghost:
-    "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50 shadow-none",
+  ghost: "hover:bg-dark-light/5 shadow-none",
 };
 
 export const buttonTheme = {
