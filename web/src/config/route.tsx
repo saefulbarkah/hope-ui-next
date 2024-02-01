@@ -1,4 +1,4 @@
-import { Layers2, LayoutDashboard, Settings2 } from "lucide-react";
+import { Layers2, LayoutDashboard, Settings2, StickyNote } from "lucide-react";
 import { LinkProps } from "next/link";
 
 type menu = {
@@ -25,6 +25,11 @@ export const routeMenus: menu[] = [
         label: "Dashboard",
         icon: <LayoutDashboard />,
         url: "/ui/dashboard",
+      },
+      {
+        label: "Starter page",
+        icon: <StickyNote />,
+        url: "/blank",
       },
       {
         label: "Menu Style",
