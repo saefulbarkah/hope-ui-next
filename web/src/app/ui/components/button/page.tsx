@@ -1,6 +1,6 @@
 import HeaderPage from "@/components/header/header-page";
 import { MainContent } from "@/components/layout";
-import { ElementButton } from "@/features/components";
+import { FeatureButton } from "@/features/components";
 import React from "react";
 
 export default function page() {
@@ -8,7 +8,7 @@ export default function page() {
     <div>
       <HeaderPage title="Button Component" />
       <MainContent>
-        <ElementButton />
+        <FeatureButton />
       </MainContent>
     </div>
   );

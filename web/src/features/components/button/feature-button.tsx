@@ -122,7 +122,7 @@ const BadgeButton = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Icon Button</CardTitle>
+        <CardTitle>Badge Button</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap items-center gap-2">
@@ -144,7 +144,7 @@ const BadgeButton = () => {
   );
 };
 
-export const ElementButton = () => {
+export const FeatureButton = () => {
   return (
     <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
       <SolidButton />
