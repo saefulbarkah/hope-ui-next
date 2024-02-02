@@ -44,6 +44,10 @@ export const routeMenus: menu[] = [
         prefix: "/ui/components",
         child: [
           {
+            label: "Alert",
+            url: "/alert",
+          },
+          {
             label: "Badge",
             url: "/badge",
           },
