@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
-import { ToastComponent, toast } from "@/components/toast";
+import { toast, toastCustom } from "@/components/toast";
 import Link from "next/link";
 import { Info } from "lucide-react";
 
@@ -37,7 +37,7 @@ export const FeatureToast = () => {
       <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Toast Default</CardTitle>
+            <CardTitle>Toast</CardTitle>
           </CardHeader>
           <CardContent className="flex gap-2">
             <Button onClick={() => toast.success("Success")}>
@@ -45,6 +45,9 @@ export const FeatureToast = () => {
             </Button>
             <Button variant={"danger"} onClick={() => toast.error("Error")}>
               Toast Error
+            </Button>
+            <Button variant={"dark"} onClick={() => toastCustom.notification()}>
+              Custom
             </Button>
           </CardContent>
         </Card>
