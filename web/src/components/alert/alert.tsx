@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { useState } from "react";
@@ -61,6 +62,8 @@ export const Alert = ({
   ...props
 }: Alert) => {
   const [closeAlert, setCloseAlert] = useState(false);
+  //   const [isDragging, setDragging] = useState(false);
+  //   const [offsetAlert, setOffsetAlert] = useState(0);
 
   return (
     <AnimatePresence>
@@ -70,11 +73,22 @@ export const Alert = ({
           initial={"open"}
           animate={"open"}
           exit={"close"}
+          transition={{ bounce: 0, type: "spring" }}
           variants={closeAnimateAlert}
+          //   drag={"x"}
+          //   onPointerDown={() => setDragging(true)}
+          //   onPointerUp={() => setDragging(false)}
+          //   onDrag={(event, info) => {
+          //     if (info.point.x >= 100) {
+          //       if (!isDragging) {
+          //         setCloseAlert(true);
+          //       }
+          //     }
+          //   }}
         >
           <div className={cn(alertVariants({ className, variant }))} {...props}>
             {icon && <i className="mr-2">{icon}</i>}
-            {children}
+            <div className="pointer-events-none">{children}</div>
             {withClose ? (
               <button className="ml-auto" onClick={() => setCloseAlert(true)}>
                 <X />
