@@ -3,7 +3,7 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
-import { Dot, Layers2, LayoutDashboard, Settings2 } from "lucide-react";
+import { Dot } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -18,7 +18,7 @@ import { AnimatePresence, Variants, motion } from "framer-motion";
 import { routeMenus } from "@/config/route";
 
 export const Sidebar = () => {
-  const { sidebarOpen, toggleSidebar } = useLayoutStore((state) => state);
+  const { sidebarOpen, setSidebarOpen } = useLayoutStore((state) => state);
   const [isCollapsed, setCollapsed] = useState("");
   const router = usePathname();
 
@@ -125,9 +125,11 @@ export const Sidebar = () => {
             transition={{ bounce: 0, type: "spring", duration: 0.5 }}
             className={cn(
               "fixed inset-0 z-[55] block cursor-pointer bg-black/60 [--sidebar-closed-opacity:0%] [--sidebar-open-opacity:100%] lg:hidden",
-              `${sidebarOpen ? "pointer-events-none" : "pointer-events-auto"}`,
             )}
-            onClick={() => toggleSidebar()}
+            onClick={() => {
+              // this mean closed on mobile
+              setSidebarOpen(true);
+            }}
           />
         )}
       </AnimatePresence>
@@ -203,7 +205,7 @@ const MenuItem = ({
         size={"default"}
         variant={router === href ? "primary" : "ghost"}
         className={cn(
-          `flex w-full items-center justify-start py-2.5 px-6 text-start capitalize shadow-none motion-reduce:transition-none ${router === href ? "text-white" : "text-[#8A92A6]"}`,
+          `flex w-full items-center justify-start px-6 py-2.5 text-start capitalize shadow-none motion-reduce:transition-none ${router === href ? "text-white" : "text-[#8A92A6]"}`,
           className,
         )}
       >
