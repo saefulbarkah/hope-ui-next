@@ -59,9 +59,9 @@ export const Sidebar = () => {
           duration: 0.5,
         }}
         variants={sidebarVariant}
-        className={`fixed bottom-0 left-0 top-0 z-[60] w-sidebar-mobile bg-white will-change-transform [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
+        className={`fixed bottom-0 left-0 top-0 z-[60] h-screen w-sidebar-mobile overflow-auto bg-white will-change-transform [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
       >
-        <div className="relative flex items-center justify-center gap-2 px-8 pb-4 pt-6">
+        <div className="relative flex items-center justify-center gap-2 pb-4 pt-6">
           <Logo />
           <h2 className="text-3xl">Hope UI</h2>
         </div>
