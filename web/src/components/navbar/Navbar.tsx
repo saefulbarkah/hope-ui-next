@@ -32,7 +32,7 @@ export const Navbar = () => {
         duration: 0.5,
       }}
       className={
-        "fixed inset-x-0 top-0 z-50 bg-white ease-in-out [--closed-sidebar:0px] [--open-sidebar:0px] lg:[--closed-sidebar:0px] lg:[--open-sidebar:var(--w-sidebar-desktop)]"
+        "fixed inset-x-0 top-0 z-50 transform-gpu bg-white ease-in-out [--closed-sidebar:0px] [--open-sidebar:0px] lg:[--closed-sidebar:0px] lg:[--open-sidebar:var(--w-sidebar-desktop)]"
       }
     >
       <div className="relative flex h-[76px] items-center justify-between px-8 py-4">

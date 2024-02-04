@@ -44,7 +44,7 @@ export default function Layout({ children }: PropsWithChildren) {
             marginLeft: "var(--close-sidebar)",
           },
         }}
-        className={`mt-[76px] will-change-transform [--close-sidebar:var(--w-sidebar-mobile)] [--open-sidebar:0px] lg:[--close-sidebar:0px] lg:[--open-sidebar:var(--w-sidebar-desktop)]`}
+        className={`mt-[76px] transform-gpu will-change-transform [--close-sidebar:var(--w-sidebar-mobile)] [--open-sidebar:0px] lg:[--close-sidebar:0px] lg:[--open-sidebar:var(--w-sidebar-desktop)]`}
       >
         {children}
       </motion.div>
