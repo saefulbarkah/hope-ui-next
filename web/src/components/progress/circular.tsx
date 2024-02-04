@@ -17,6 +17,20 @@ const circularVariants = cva("", {
   },
 });
 
+const fontCircularVariant = cva("", {
+  variants: {
+    variant: {
+      blue: "fill-primary",
+      red: "fill-danger",
+      warn: "fill-warning",
+      cyan: "fill-info",
+    },
+  },
+  defaultVariants: {
+    variant: "blue",
+  },
+});
+
 export type circularColor = VariantProps<typeof circularVariants>["variant"];
 
 type props = React.HTMLAttributes<HTMLDivElement> &
@@ -53,7 +67,7 @@ export default function CircularWidget({
       <svg
         width={65}
         height={65}
-        className={cn("mr-2 -rotate-[95deg]", className)}
+        className={cn("mr-2", className)}
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
       >
@@ -83,6 +97,16 @@ export default function CircularWidget({
           }
           className={cn(circularVariants({ variant }))}
         />
+        <motion.text
+          x="47%"
+          y="50%"
+          fontSize={12}
+          textAnchor="middle" // Center the text horizontally
+          dominantBaseline="middle" // Center the text vertically
+          className={cn(fontCircularVariant({ variant }))}
+        >
+          {percentage}%
+        </motion.text>
       </svg>
       {children}
     </div>

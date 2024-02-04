@@ -46,6 +46,7 @@ export const Summary = () => {
             <CircularWidget
               percentage={item.progress}
               variant={item.circular as circularColor}
+              animation={false}
             />
             <div>
               <p className="text-sm capitalize text-gray-500">Total Sales</p>
