@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} overflow-y-scroll bg-light`}>
+      <body className={`${inter.className} !mr-0 !overflow-y-auto bg-light`}>
         <ToastComponent />
         <NextTopLoader />
         <Layout>{children}</Layout>
