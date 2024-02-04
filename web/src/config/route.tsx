@@ -64,6 +64,10 @@ export const routeMenus: menu[] = [
             url: "/tabs",
           },
           {
+            label: "Table",
+            url: "/table",
+          },
+          {
             label: "Toast",
             url: "/toast",
           },

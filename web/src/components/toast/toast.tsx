@@ -1,7 +1,7 @@
 import React from "react";
 import { Toaster, toast } from "react-hot-toast";
 
-export const ToastComponent = () => {
+const ToastComponent = () => {
   return (
     <Toaster
       position="top-center"
@@ -12,4 +12,4 @@ export const ToastComponent = () => {
     />
   );
 };
-export { toast };
+export { toast, ToastComponent };
