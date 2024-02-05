@@ -14,32 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
-import React, { useState } from "react";
-
-const data = [
-  {
-    item: "Product A",
-    quantity: 10,
-    price: 20.99,
-  },
-  {
-    item: "Product B",
-    quantity: 5,
-    price: 15.5,
-  },
-  {
-    item: "Product C",
-    quantity: 8,
-    price: 25.75,
-  },
-  {
-    item: "Product D",
-    quantity: 8,
-    price: 25.75,
-  },
-];
+import React from "react";
+import { useDataDummy } from "@/hooks/use-data-dummy";
 
 const TableResponsive = () => {
+  const { data } = useDataDummy();
   return (
     <Card>
       <CardHeader>
@@ -56,10 +35,10 @@ const TableResponsive = () => {
             </Table.Row>
           </Table.Head>
           <Table.Body>
-            {data.map((item, i) => (
+            {data.map((item: any, i) => (
               <Table.Row key={i}>
-                <Table.Cell>{item.item}</Table.Cell>
-                <Table.Cell>{item.quantity}</Table.Cell>
+                <Table.Cell>{item.title}</Table.Cell>
+                <Table.Cell>{item.stock}</Table.Cell>
                 <Table.Cell>{item.price}</Table.Cell>
                 <Table.Cell className="flex items-center">
                   <Button size={"icon"} withIcon={<Edit className="h-5 w-5" />}>
@@ -85,6 +64,8 @@ const TableResponsive = () => {
 
 // data table usage example
 const ExampleDataTable = () => {
+  const { data } = useDataDummy();
+
   const columns: ColumnDef<(typeof data)[0]>[] = [
     {
       id: "select",
@@ -112,11 +93,11 @@ const ExampleDataTable = () => {
     },
     {
       header: "Product",
-      accessorKey: "item",
+      accessorKey: "title",
     },
     {
       header: "Quantity",
-      accessorKey: "quantity",
+      accessorKey: "stock",
     },
     {
       header: "Price",
@@ -154,9 +135,11 @@ const ExampleDataTable = () => {
   ];
   return (
     <Card>
-      <CardHeader>Data Table Responsive</CardHeader>
+      <CardHeader>
+        <CardTitle>Data Table Responsive</CardTitle>
+      </CardHeader>
       <CardContent>
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data} rangeSizePagination={3} />
       </CardContent>
     </Card>
   );
@@ -165,8 +148,8 @@ const ExampleDataTable = () => {
 export const FeatureTable = () => {
   return (
     <div className="flex flex-col gap-5">
-      <TableResponsive />
       <ExampleDataTable />
+      <TableResponsive />
     </div>
   );
 };

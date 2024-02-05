@@ -61,7 +61,7 @@ const Title = ({ className, ...props }: TitleProps) => {
 Table.Title = Title;
 
 // Table Item section
-interface CellProps extends React.HTMLAttributes<HTMLTableCellElement> {}
+interface CellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {}
 const TableCell = ({ className, ...props }: CellProps) => {
   return (
     <td

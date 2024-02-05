@@ -3,38 +3,68 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Table } from "../table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
+import { usePagination } from "@/hooks/use-pagination";
 
 interface dataTableProp<TData, TValue> {
   data: TData[];
+  pageSize?: number;
   columns: ColumnDef<TData, TValue>[];
+  rangeSizePagination?: number;
 }
 
 export const DataTable = <TData, TValue>({
   data,
   columns,
+  pageSize = 5,
+  rangeSizePagination = 3,
 }: dataTableProp<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: pageSize,
+      },
+    },
   });
+  const { getVisibleRange } = usePagination();
+
+  const visibleRange = getVisibleRange({
+    currentPage: table.getState().pagination.pageIndex,
+    pageCount: table.getPageCount(),
+    rangeSize: rangeSizePagination,
+  });
+
   return (
     <div>
       <Table>
         <Table.Head>
-          {table.getHeaderGroups().map((headerGroup, i) => (
-            <Table.Row key={i}>
-              {headerGroup.headers.map((item, i) => {
+          {table.getHeaderGroups().map((headerGroup) => (
+            <Table.Row key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
                 return (
-                  <Table.Title key={item.id}>
-                    {item.isPlaceholder
+                  <Table.Title key={header.id}>
+                    {header.isPlaceholder
                       ? null
                       : flexRender(
-                          item.column.columnDef.header,
-                          item.getContext(),
+                          header.column.columnDef.header,
+                          header.getContext(),
                         )}
                   </Table.Title>
                 );
@@ -58,13 +88,110 @@ export const DataTable = <TData, TValue>({
             ))
           ) : (
             <Table.Row>
-              <Table.call colSpan={columns.length} className="h-24 text-center">
+              <Table.Cell colSpan={columns.length} className="h-24 text-center">
                 No results.
-              </Table.call>
+              </Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
       </Table>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="text-muted-foreground flex-1 text-sm">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+        <div className="space-x-2">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  className={cn(
+                    `select-none hover:bg-dark/10 ${table.getCanPreviousPage() ? "cursor-pointer" : "cursor-not-allowed text-secondary/80"}`,
+                  )}
+                  onClick={() => {
+                    if (table.getCanPreviousPage()) {
+                      table.previousPage();
+                    }
+                  }}
+                />
+              </PaginationItem>
+              {visibleRange.map((item, index) => (
+                <React.Fragment key={index}>
+                  {index === 0 && table.getState().pagination.pageIndex > 1 && (
+                    <>
+                      <PaginationItem>
+                        <PaginationLink
+                          className="cursor-pointer px-3 shadow-none transition-none"
+                          onClick={() => table.setPageIndex(0)}
+                          isActive={
+                            table.getState().pagination.pageIndex + 1 === item
+                              ? true
+                              : false
+                          }
+                        >
+                          1
+                        </PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationEllipsis />
+                      </PaginationItem>
+                    </>
+                  )}
+                  <PaginationItem>
+                    <PaginationLink
+                      className="cursor-pointer px-3 shadow-none transition-none"
+                      onClick={() => table.setPageIndex(item - 1)}
+                      isActive={
+                        table.getState().pagination.pageIndex + 1 === item
+                          ? true
+                          : false
+                      }
+                    >
+                      {item}
+                    </PaginationLink>
+                  </PaginationItem>
+                  {index === visibleRange.length - 1 &&
+                    table.getState().pagination.pageIndex + 1 <
+                      table.getPageCount() && (
+                      <>
+                        <PaginationItem>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                        <PaginationItem>
+                          <PaginationLink
+                            className="cursor-pointer px-3 shadow-none transition-none"
+                            onClick={() =>
+                              table.setPageIndex(table.getPageCount() - 1)
+                            }
+                            isActive={
+                              table.getState().pagination.pageIndex === item
+                                ? true
+                                : false
+                            }
+                          >
+                            {table.getPageCount()}
+                          </PaginationLink>
+                        </PaginationItem>
+                      </>
+                    )}
+                </React.Fragment>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  className={cn(
+                    `select-none hover:bg-dark/10 ${table.getCanNextPage() ? "cursor-pointer" : "cursor-not-allowed text-secondary/80"}`,
+                  )}
+                  onClick={() => {
+                    if (table.getCanNextPage()) {
+                      table.nextPage();
+                    }
+                  }}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      </div>
     </div>
   );
 };
