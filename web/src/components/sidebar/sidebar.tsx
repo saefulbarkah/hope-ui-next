@@ -48,7 +48,7 @@ export const Sidebar = () => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative px-5">
       <motion.div
         key={"sidebar-layout"}
         initial={sidebarOpen ? "open" : "close"}
@@ -59,7 +59,7 @@ export const Sidebar = () => {
           duration: 0.5,
         }}
         variants={sidebarVariant}
-        className={`fixed bottom-0 left-0 top-0 z-[60] h-screen w-sidebar-mobile transform-gpu overflow-auto bg-white will-change-transform [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
+        className={`sidebar-scrollbar fixed bottom-0 left-0 top-0 z-[60] h-screen w-sidebar-mobile transform-gpu overflow-auto overflow-y-scroll bg-white will-change-transform [--sidebar-closed:0px] [--sidebar-open:-100%] lg:z-10 lg:w-sidebar-desktop lg:[--sidebar-closed:-100%] lg:[--sidebar-open:-0px]`}
       >
         <div className="relative flex items-center justify-center gap-2 pb-4 pt-6">
           <Logo />
