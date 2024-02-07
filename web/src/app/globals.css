@@ -9,7 +9,6 @@
 
 @layer base {
   .sidebar-scrollbar {
-    transition: all 0.3s ease-in-out;
     &::-webkit-scrollbar {
       @apply w-[10px] bg-transparent;
     }

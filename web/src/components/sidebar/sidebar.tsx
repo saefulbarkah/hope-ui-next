@@ -117,12 +117,14 @@ export const Sidebar = () => {
             variants={{
               open: {
                 opacity: "var(--sidebar-open-opacity)",
+                pointerEvents: "auto",
               },
               closed: {
                 opacity: "var(--sidebar-closed-opacity)",
+                pointerEvents: "none",
               },
             }}
-            transition={{ bounce: 0, type: "spring", duration: 0.5 }}
+            transition={{ type: "spring", duration: 0.2 }}
             className={cn(
               "fixed inset-0 z-[55] block cursor-pointer bg-black/60 [--sidebar-closed-opacity:0%] [--sidebar-open-opacity:100%] lg:hidden",
             )}
