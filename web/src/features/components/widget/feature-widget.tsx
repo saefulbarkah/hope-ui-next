@@ -10,7 +10,7 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const Circular = () => {
   return (
-    <div className="grid grid-cols-5 items-center gap-2">
+    <div className="grid grid-cols-1 items-center gap-2 md:grid-cols-2 lg:grid-cols-5">
       <Card>
         <CardContent className="flex items-center px-4 py-2">
           <CircularWidget percentage={50} variant={"blue"} />
@@ -62,7 +62,7 @@ const Circular = () => {
 
 const Bar = () => {
   return (
-    <div className="grid grid-cols-3 items-center gap-2">
+    <div className="grid grid-cols-1 items-center gap-2 md:grid-cols-2 lg:grid-cols-3">
       <Card>
         <CardContent className="px-4 py-5">
           <h2 className="text-center">AVG Impressions</h2>
@@ -158,7 +158,7 @@ const StatisticWidget = () => {
     },
   ];
   return (
-    <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
       {data.map((item, i) => {
         return (
           <Card key={i}>
