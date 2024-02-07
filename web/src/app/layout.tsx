@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/layout";
 import { ToastComponent } from "@/components/toast";
+import { QueryProvider } from "@/providers/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} !mr-0 !overflow-y-auto bg-light`}>
-        <ToastComponent />
-        <NextTopLoader />
-        <Layout>{children}</Layout>
+        <QueryProvider>
+          <ToastComponent />
+          <NextTopLoader />
+          <Layout>{children}</Layout>
+        </QueryProvider>
       </body>
     </html>
   );

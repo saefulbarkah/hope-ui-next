@@ -1,7 +1,7 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 type Tdata = {
   title: string;
@@ -9,24 +9,22 @@ type Tdata = {
   price: number;
 };
 
+const getData = async (): Promise<Tdata[]> => {
+  try {
+    const response = await axios.get(
+      "https://dummyjson.com/products?limit=100",
+    );
+    const data = await response.data.products;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const useDataDummy = () => {
-  const [data, setData] = useState<Tdata[]>([]);
-
-  const fetch = async () => {
-    try {
-      const response = await axios.get(
-        "https://dummyjson.com/products?limit=100",
-      );
-      const data = await response.data.products;
-      setData(data);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  };
-  useEffect(() => {
-    fetch();
-  }, []);
-
-  return { data };
+  return useQuery({
+    initialData: [],
+    queryKey: ["data-dummy"],
+    queryFn: getData,
+  });
 };

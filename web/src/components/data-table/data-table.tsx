@@ -18,12 +18,14 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { usePagination } from "@/hooks/use-pagination";
+import { Loader2 } from "lucide-react";
 
 interface dataTableProp<TData, TValue> {
   data: TData[];
   pageSize?: number;
   columns: ColumnDef<TData, TValue>[];
   rangeSizePagination?: number;
+  isLoading?: boolean;
 }
 
 export const DataTable = <TData, TValue>({
@@ -31,6 +33,7 @@ export const DataTable = <TData, TValue>({
   columns,
   pageSize = 5,
   rangeSizePagination = 3,
+  isLoading,
 }: dataTableProp<TData, TValue>) => {
   const table = useReactTable({
     data,
@@ -73,7 +76,15 @@ export const DataTable = <TData, TValue>({
           ))}
         </Table.Head>
         <Table.Body>
-          {table.getRowModel().rows?.length ? (
+          {isLoading ? (
+            <Table.Row>
+              <Table.Cell colSpan={columns.length}>
+                <div className="flex h-44 items-center justify-center">
+                  <Loader2 className="h-7 w-7 animate-spin" />
+                </div>
+              </Table.Cell>
+            </Table.Row>
+          ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <Table.Row
                 key={row.id}
