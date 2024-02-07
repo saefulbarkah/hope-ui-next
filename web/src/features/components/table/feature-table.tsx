@@ -25,7 +25,7 @@ import Link from "next/link";
 
 // data table usage example
 const ExampleDataTable = () => {
-  const { data, isFetching } = useDataDummy();
+  const { data, isLoading } = useDataDummy();
 
   const columns: ColumnDef<typeof data | any>[] = [
     {
@@ -113,9 +113,9 @@ const ExampleDataTable = () => {
       <CardContent>
         <DataTable
           columns={columns}
-          data={data}
+          data={data || []}
           rangeSizePagination={3}
-          isLoading={isFetching}
+          isLoading={isLoading}
         />
       </CardContent>
     </Card>

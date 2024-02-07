@@ -23,7 +23,6 @@ const getData = async (): Promise<Tdata[]> => {
 
 export const useDataDummy = () => {
   return useQuery({
-    initialData: [],
     queryKey: ["data-dummy"],
     queryFn: getData,
   });
