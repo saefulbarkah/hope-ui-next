@@ -55,7 +55,7 @@ export default function UserMenu() {
             className="select-none rounded-full"
           />
           <div className="pointer-events-none relative hidden flex-col lg:flex">
-            <p>Saeful Barkah</p>
+            <p>Your name</p>
             <p className="text-sm text-[#8A92A6]">Software Engineer</p>
           </div>
         </button>

@@ -56,6 +56,10 @@ export const routeMenus: menu[] = [
             url: "/button",
           },
           {
+            label: "Form",
+            url: "/form",
+          },
+          {
             label: "Progress",
             url: "/progress",
           },

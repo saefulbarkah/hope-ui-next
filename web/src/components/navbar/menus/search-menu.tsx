@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/form-controls";
 import { Search } from "lucide-react";
 import React from "react";
 
