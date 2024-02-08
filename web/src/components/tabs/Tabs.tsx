@@ -25,22 +25,10 @@ import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { AnimatePresence, motion } from "framer-motion";
 
-// state
-type indicatorState = {
-  indicator: {
-    left: number;
-    width: number;
-  };
-  setIndicator: Dispatch<SetStateAction<{ left: number; width: number }>>;
-  type?: "underline" | "badge";
-};
+// type lists
+type INDICATOR_COLOR = VariantProps<typeof indicatorVariants>["variant"];
 
-type ContextType = indicatorState;
-
-const Context = createContext<ContextType | null>(null);
-const Provider = Context.Provider;
-
-// indicator variant
+// variant lists
 const indicatorVariants = cva("absolute", {
   variants: {
     variant: {
@@ -57,9 +45,21 @@ const indicatorVariants = cva("absolute", {
   },
 });
 
+// local state management store
+type indicatorState = {
+  indicator: {
+    left: number;
+    width: number;
+  };
+  setIndicator: Dispatch<SetStateAction<{ left: number; width: number }>>;
+  type?: "underline" | "badge";
+};
+type ContextType = indicatorState;
 type store = React.PropsWithChildren & {
   type?: indicatorState["type"];
 };
+const Context = createContext<ContextType | null>(null);
+const Provider = Context.Provider;
 const Store = ({ children, type = "underline" }: store) => {
   const [indicator, setIndicator] = useState<indicatorState["indicator"]>({
     left: 0,
@@ -71,8 +71,19 @@ const Store = ({ children, type = "underline" }: store) => {
   );
 };
 
-type INDICATOR_COLOR = VariantProps<typeof indicatorVariants>["variant"];
+// Component Tab Parrent
+interface Ttabs extends PropsWithChildren, TabsProps {
+  type?: indicatorState["type"];
+}
+const Tabs = ({ children, type = "underline", ...props }: Ttabs) => {
+  return (
+    <Store type={type}>
+      <Wrapper {...props}>{children}</Wrapper>
+    </Store>
+  );
+};
 
+// Component tab list
 interface listProps extends TabsListProps {
   indicatorColor?: INDICATOR_COLOR;
 }
@@ -102,6 +113,7 @@ const List = ({
   );
 };
 
+// Component tab Indicator
 interface indicatorProps extends VariantProps<typeof indicatorVariants> {}
 const Indicator = ({ variant, type = "underline" }: indicatorProps) => {
   const [render, setRender] = useState(false);
@@ -128,6 +140,7 @@ const Indicator = ({ variant, type = "underline" }: indicatorProps) => {
   );
 };
 
+// component tab item
 interface itemProps extends TabsTriggerProps {
   label: string;
   value: string;
@@ -182,23 +195,13 @@ const Item = ({
   );
 };
 
+// Component tab content
 interface ContentProps extends TabsContentProps {}
 const Content = ({ value, className, children, ...props }: ContentProps) => {
   return (
     <TabsContent className={cn("mt-5", className)} value={value} {...props}>
       {children}
     </TabsContent>
-  );
-};
-
-interface Ttabs extends PropsWithChildren, TabsProps {
-  type?: indicatorState["type"];
-}
-const Tabs = ({ children, type = "underline", ...props }: Ttabs) => {
-  return (
-    <Store type={type}>
-      <Wrapper {...props}>{children}</Wrapper>
-    </Store>
   );
 };
 
