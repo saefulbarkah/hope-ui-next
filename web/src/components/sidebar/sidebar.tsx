@@ -161,7 +161,10 @@ type menuChildProps = {
 const MenuItemChild = ({ data, icon, label, prefix, as }: menuChildProps) => {
   return (
     <>
-      <AccordionItem value={as as string} className="border-0">
+      <AccordionItem
+        value={as as string}
+        className="border-0 text-gray-500 data-[state=open]:text-black"
+      >
         <AccordionTrigger className="h-0 rounded px-6 py-6 no-underline hover:bg-light/10 hover:no-underline data-[state=closed]:hover:text-black">
           <div className="flex items-center">
             <i className="mr-2">{icon}</i>
@@ -207,7 +210,7 @@ const MenuItem = ({
         size={"default"}
         variant={router === href ? "primary" : "ghost"}
         className={cn(
-          `flex w-full items-center justify-start px-6 py-2.5 text-start capitalize shadow-none motion-reduce:transition-none ${router === href ? "text-white" : "text-[#8A92A6]"}`,
+          `flex w-full items-center justify-start px-6 py-2.5 text-start capitalize shadow-none motion-reduce:transition-none ${router === href ? "text-white" : "text-gray-500"}`,
           className,
         )}
       >
