@@ -11,3 +11,4 @@
 - TailwindCSS
 - Radix UI
 - Framer Motion
+- Rechart
