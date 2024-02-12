@@ -40,6 +40,28 @@ export const routeMenus: menu[] = [
     ],
   },
   {
+    pageTitle: "Pages",
+    items: [
+      {
+        label: "Auth",
+        icon: <Layers2 />,
+        url: null,
+        as: "auth",
+        prefix: "/ui/auth",
+        child: [
+          {
+            label: "Login",
+            url: "/login",
+          },
+          {
+            label: "Register",
+            url: "/register",
+          },
+        ],
+      },
+    ],
+  },
+  {
     pageTitle: "Elements",
     items: [
       {

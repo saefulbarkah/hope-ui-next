@@ -2,7 +2,6 @@ import NextTopLoader from "nextjs-toploader";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Layout from "@/components/layout";
 import { ToastComponent } from "@/components/toast";
 import { QueryProvider } from "@/providers/query-provider";
 
@@ -24,7 +23,7 @@ export default function RootLayout({
         <QueryProvider>
           <ToastComponent />
           <NextTopLoader />
-          <Layout>{children}</Layout>
+          {children}
         </QueryProvider>
       </body>
     </html>
