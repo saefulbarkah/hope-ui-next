@@ -9,8 +9,10 @@ import {
   YAxis,
   Area,
   Tooltip,
+  Legend,
 } from "recharts";
 import { chartKeyProps } from "./chart";
+import { chartColorvariant } from "./constant-chart";
 
 interface LineProps {
   data?: any[];
@@ -59,12 +61,13 @@ export const AreaChart = ({
           <Area
             type="monotone"
             fillOpacity={1}
-            stroke={`${item.strokeColor}`}
+            stroke={chartColorvariant[item.strokeColor]}
             fill={`url(#${item.name})`}
             dataKey={item.name}
             key={i}
           />
         ))}
+        <Legend />
       </Chart>
     </ResponsiveContainer>
   );

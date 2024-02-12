@@ -3,13 +3,13 @@
 import React from "react";
 import {
   ResponsiveContainer,
-  LineChart as Chart,
+  BarChart as Chart,
   XAxis,
-  CartesianGrid,
   YAxis,
   Tooltip,
+  Bar,
+  CartesianGrid,
   Legend,
-  Line,
 } from "recharts";
 import { chartKeyProps } from "./chart";
 import { chartColorvariant } from "./constant-chart";
@@ -19,32 +19,30 @@ interface LineProps {
   dataKey?: chartKeyProps[];
   height?: number;
   dataKeyXName: string;
-  withGrid?: boolean;
 }
 
-export const LineChart = ({
+export const BarChart = ({
   data,
   dataKey,
   height = 300,
   dataKeyXName,
-  withGrid = true,
 }: LineProps) => {
   return (
     <ResponsiveContainer width={"100%"} height={height}>
-      <Chart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-        {withGrid && <CartesianGrid strokeDasharray={"3 3"} />}
+      <Chart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={dataKeyXName} />
         <YAxis />
         <Tooltip />
-        <Legend />
         {dataKey?.map((item, i) => (
-          <Line
-            type="monotone"
+          <Bar
+            fillOpacity={1}
+            fill={chartColorvariant[item.strokeColor]}
             dataKey={item.name}
-            stroke={chartColorvariant[item.strokeColor]}
             key={i}
           />
         ))}
+        <Legend />
       </Chart>
     </ResponsiveContainer>
   );
