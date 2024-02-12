@@ -4,6 +4,7 @@ const solidColor = {
   warning: "bg-warning text-white",
   info: "bg-info text-white",
   success: "bg-success text-white",
+  dark: "text-white bg-dark",
 };
 const outlineColor = {
   "outline-primary": "outline outline-[1px] outline-primary text-primary",

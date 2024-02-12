@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 type Props = {
   withBanner?: boolean;
   title?: string;
-  description?: string;
+  description?: string | JSX.Element;
 };
 
-export default function HeaderPage({
+export const HeaderPage = ({
   withBanner = true,
   description,
   title,
-}: Props) {
+}: Props) => {
   return (
     <div className="relative">
       {withBanner && (
@@ -39,4 +39,4 @@ export default function HeaderPage({
       </div>
     </div>
   );
-}
+};

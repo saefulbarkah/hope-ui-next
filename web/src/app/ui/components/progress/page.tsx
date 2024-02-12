@@ -1,4 +1,4 @@
-import HeaderPage from "@/components/header/header-page";
+import { HeaderPage } from "@/components/header";
 import { MainContent } from "@/components/layout";
 import { FeatureProgress } from "@/features/components/progress/feature-progress";
 import React from "react";

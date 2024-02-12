@@ -1,4 +1,10 @@
-import { Layers2, LayoutDashboard, Settings2, StickyNote } from "lucide-react";
+import {
+  Layers2,
+  LayoutDashboard,
+  PieChartIcon,
+  Settings2,
+  StickyNote,
+} from "lucide-react";
 import { LinkProps } from "next/link";
 
 type menu = {
@@ -84,6 +90,11 @@ export const routeMenus: menu[] = [
             url: "/widget",
           },
         ],
+      },
+      {
+        label: "Chart",
+        icon: <PieChartIcon />,
+        url: "/ui/chart",
       },
     ],
   },

@@ -9,10 +9,10 @@ type Tdata = {
   price: number;
 };
 
-const getData = async (): Promise<Tdata[]> => {
+const getData = async (limit: number): Promise<Tdata[]> => {
   try {
     const response = await axios.get(
-      "https://dummyjson.com/products?limit=100",
+      "https://dummyjson.com/products?limit=" + limit,
     );
     const data = await response.data.products;
     return data;
@@ -21,9 +21,9 @@ const getData = async (): Promise<Tdata[]> => {
   }
 };
 
-export const useDataDummy = () => {
+export const useDataDummy = ({ limit = 100 }: { limit?: number } = {}) => {
   return useQuery({
     queryKey: ["data-dummy"],
-    queryFn: getData,
+    queryFn: () => getData(limit),
   });
 };
