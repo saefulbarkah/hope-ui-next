@@ -1,3 +1,4 @@
+"use client";
 import { Input, Label } from "@/components/form-controls";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock, Mail, User } from "lucide-react";
