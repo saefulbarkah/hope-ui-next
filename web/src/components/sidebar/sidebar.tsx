@@ -204,6 +204,7 @@ const MenuItem = ({
   ...props
 }: menuProps) => {
   const router = usePathname();
+  const toggleSidebar = useLayoutStore((state) => state.toggleSidebar);
   return (
     <Link href={href} {...props}>
       <Button
@@ -213,6 +214,11 @@ const MenuItem = ({
           `flex w-full items-center justify-start px-6 py-2.5 text-start capitalize shadow-none motion-reduce:transition-none ${router === href ? "text-white" : "text-gray-500"}`,
           className,
         )}
+        onClick={() => {
+          if (window.innerWidth < 1024) {
+            toggleSidebar();
+          }
+        }}
       >
         <i className="mr-2">{icon}</i>
         {label}
