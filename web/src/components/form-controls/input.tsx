@@ -25,7 +25,7 @@ export interface InputProps
   Icon?: JSX.Element;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const RootInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, sizes, Icon, placeholder, children, ...props }, ref) => {
     return (
       <div className="relative">
@@ -33,7 +33,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           placeholder={placeholder}
           className={cn(
-            `place peer flex w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white transition file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300`,
+            `place peer flex w-full rounded-md bg-white px-3 py-2 text-sm ring-1 ring-slate-400 ring-offset-white transition file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300`,
             inputVariants({ className, sizes }),
             `${Icon && "pl-10"}`,
             `placeholder-transparent`,
@@ -61,7 +61,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-Input.displayName = "Input";
+RootInput.displayName = "Input";
 
 const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
@@ -79,6 +79,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
             <Button
               variant={"ghost"}
               size={"icon"}
+              type="button"
               onClick={() => {
                 return setShow((state) => !state);
               }}
@@ -97,4 +98,6 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
 );
 PasswordInput.displayName = "PasswordInput";
 
-export { Input, PasswordInput };
+export const Input = Object.assign(RootInput, {
+  Password: PasswordInput,
+});
