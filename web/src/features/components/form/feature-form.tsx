@@ -1,4 +1,4 @@
-import { Input, Label, PasswordInput } from "@/components/form-controls";
+import { Input, Label } from "@/components/form-controls";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock, Mail, User } from "lucide-react";
 import React from "react";
@@ -40,7 +40,7 @@ const InputElementWithIcon = () => {
           Icon={<Mail className="h-5 w-5" />}
           type="email"
         />
-        <PasswordInput
+        <Input.Password
           sizes={"lg"}
           placeholder="Passowrd"
           Icon={<Lock className="h-5 w-5" />}
